@@ -22,6 +22,7 @@ services:
       MYSQL_PASSWORD: twita_pass
     volumes:
       - db_data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin

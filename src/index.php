@@ -1,20 +1,39 @@
 <?php
-require_once "config.php";
+session_start();
 
-echo "<h2>PHP Native - Apps2</h2>";
-echo "<p>Database connection successful!</p>";
+require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/controllers/AuthController.php';
+require_once __DIR__ . '/controllers/TweetController.php';
 
-// coba query sederhana
-// $sql = "SHOW TABLES;";
-// $result = $conn->query($sql);
+$action = $_GET['action'] ?? '';
 
-// if ($result) {
-//     echo "<p>Tables in database <b>$dbname</b>:</p><ul>";
-//     while ($row = $result->fetch_array()) {
-//         echo "<li>" . $row[0] . "</li>";
-//     }
-//     echo "</ul>";
-// } else {
-//     echo "<p>No tables yet.</p>";
-// }
+$auth = new AuthController($conn);
+$tweet = new TweetController($conn);
+
+switch ($action) {
+    case 'login':
+        $auth->login();
+        break;
+    case 'register':
+        $auth->register();
+        break;
+    case 'logout':
+        $auth->logout();
+        break;
+    case 'loginForm':
+        $auth->showLogin();
+        break;
+    case 'registerForm':
+        $auth->showRegister();
+        break;
+    case 'showAdd':
+        $tweet->showAdd();
+        break;
+    case 'storeTweet':
+        $tweet->store();
+        break;
+    default:
+        $tweet->index();
+        break;
+}
 ?>
