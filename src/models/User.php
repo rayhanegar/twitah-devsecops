@@ -24,6 +24,15 @@ class User {
         return false;
     }
 
+    public function getById($id) {
+        $sql = "SELECT * FROM {$this->table} WHERE id = " . (int)$id . " LIMIT 1";
+        $res = $this->conn->query($sql);
+        if ($res && $res->num_rows === 1) {
+            return $res->fetch_assoc();
+        }
+        return null;
+    }
+
     private function escape($val) {
         // minimal escaping using mysqli_real_escape_string — still unsafe if bypassed in demo
         return $this->conn->real_escape_string($val);

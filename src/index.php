@@ -4,11 +4,13 @@ session_start();
 require_once __DIR__ . '/config/config.php';
 require_once __DIR__ . '/controllers/AuthController.php';
 require_once __DIR__ . '/controllers/TweetController.php';
+require_once __DIR__ . '/controllers/ProfileController.php';
 
 $action = $_GET['action'] ?? '';
 
 $auth = new AuthController($conn);
 $tweet = new TweetController($conn);
+$profile = new ProfileController($conn);
 
 switch ($action) {
     case 'login':
@@ -31,6 +33,18 @@ switch ($action) {
         break;
     case 'storeTweet':
         $tweet->store();
+        break;
+    case 'updateTweet':
+        $tweet->updateTweet();
+        break;
+    case 'deleteTweet':
+        $tweet->deleteTweet();
+        break;
+    case 'profile':
+        $profile->show();
+        break;
+    case 'updateUsername':
+        $profile->updateUsername();
         break;
     default:
         $tweet->index();

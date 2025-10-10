@@ -34,7 +34,15 @@ class Tweet {
                OR u.username LIKE '%$keyword%'
             ORDER BY t.created_at DESC";
     return $this->conn->query($sql);
-}
-
+    }
+    public function getByUserId($user_id) {
+        $u = (int)$user_id; // cast to int for safety
+        $sql = "SELECT * FROM {$this->table} WHERE user_id = $u ORDER BY created_at DESC";
+        $res = $this->conn->query($sql);
+        if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        }
+        return [];
+    }
 }
 ?>

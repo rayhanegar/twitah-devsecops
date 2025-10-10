@@ -17,7 +17,12 @@
   <?php if ($tweets && $tweets->num_rows > 0): ?>
     <?php while ($row = $tweets->fetch_assoc()): ?>
       <div class="tweet">
-        <strong>@<?= $row['username']; ?></strong><br>
+        <strong>
+          <a href="index.php?action=profile&id=<?= $row['id']; ?>" 
+            style="text-decoration:none; color:#000;">
+            @<?= $row['username']; ?>
+          </a>
+        </strong><br>
         <!-- intentionally NOT escaping content to allow XSS demo -->
         <p><?= $row['content']; ?></p>
         <?php if (!empty($row['image_url'])): ?>

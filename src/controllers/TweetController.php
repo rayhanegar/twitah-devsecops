@@ -3,9 +3,11 @@ require_once __DIR__ . '/../models/Tweet.php';
 
 class TweetController {
     private $model;
+    private $db;
     private $uploadDir;
 
     public function __construct($db) {
+        $this->db = $db;
         $this->model = new Tweet($db);
         $this->uploadDir = __DIR__ . '/../uploads/';
     }
@@ -54,5 +56,45 @@ class TweetController {
             include __DIR__ . '/../views/add.php';
         }
     }
+    public function updateTweet() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = $_POST['id'];
+        $content = $_POST['content'];
+
+        // Update tweet
+        $query = "UPDATE tweets SET content = '$content' WHERE id = '$id'";
+        $this->db->query($query);
+
+        // Ambil username dari session agar bisa redirect ke profil yang sama
+        $username = $_SESSION['user']['username'] ?? null;
+
+        if ($username) {
+            header("Location: index.php?action=profile&username={$username}&success=1");
+        } else {
+            header("Location: index.php?action=profile&success=1");
+        }
+        exit;
+    }
+}
+    public function deleteTweet() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = $_POST['id'];
+
+        // Hapus tweet dari database
+        $query = "DELETE FROM tweets WHERE id = '$id'";
+        $this->db->query($query);
+
+        // Ambil username user aktif agar bisa redirect ke halaman profil yang sama
+        $username = $_SESSION['user']['username'] ?? null;
+
+        if ($username) {
+            header("Location: index.php?action=profile&username={$username}&deleted=1");
+        } else {
+            header("Location: index.php?action=profile&deleted=1");
+        }
+        exit;
+    }
+}
+
 }
 ?>
