@@ -55,12 +55,14 @@
             <div style="display:flex; gap:10px; align-items:center;">
               
               <!-- Tombol Edit -->
-              <a href="#" 
-                 title="Edit Tweet" 
-                 style="color:#ffc107; text-decoration:none; font-size:18px;"
-                 onclick="openEditDialog(<?= $tweet['id']; ?>, '<?= htmlspecialchars(addslashes($tweet['content'])); ?>'); return false;">
-                <i class="fas fa-edit"></i>
-              </a>
+              <?php if($profileUser['role'] === 'ningrat'): ?>
+                <a href="#" 
+                  title="Edit Tweet" 
+                  style="color:#ffc107; text-decoration:none; font-size:18px;"
+                  onclick="openEditDialog(<?= $tweet['id']; ?>, '<?= htmlspecialchars(addslashes($tweet['content'])); ?>'); return false;">
+                  <i class="fas fa-edit"></i>
+                </a>
+              <?php endif; ?>
 
               <!-- Tombol Delete -->
               <form method="POST" action="index.php?action=deleteTweet" style="display:inline;" 

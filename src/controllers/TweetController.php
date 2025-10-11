@@ -66,10 +66,10 @@ class TweetController {
         $this->db->query($query);
 
         // Ambil username dari session agar bisa redirect ke profil yang sama
-        $username = $_SESSION['user']['username'] ?? null;
+        $id = $_SESSION['user']['id'] ?? null;
 
-        if ($username) {
-            header("Location: index.php?action=profile&username={$username}&success=1");
+        if ($id) {
+            header("Location: index.php?action=profile&id={$id}&success=1");
         } else {
             header("Location: index.php?action=profile&success=1");
         }
