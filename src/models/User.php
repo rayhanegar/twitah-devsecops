@@ -16,7 +16,7 @@ class User {
 
     // LOGIN: raw SQL (vulnerable to SQLi)
     public function login($email, $password) {
-        $sql = "SELECT * FROM {$this->table} WHERE email = '" . $this->escape($email) . "' AND password = '" . $this->escape($password) . "' LIMIT 1";
+        $sql = "SELECT * FROM {$this->table} WHERE email = '$email' AND password = '$password' LIMIT 1";
         $res = $this->conn->query($sql);
         if ($res && $res->num_rows === 1) {
             return $res->fetch_assoc();
@@ -34,7 +34,6 @@ class User {
     }
 
     private function escape($val) {
-        // minimal escaping using mysqli_real_escape_string — still unsafe if bypassed in demo
         return $this->conn->real_escape_string($val);
     }
 }

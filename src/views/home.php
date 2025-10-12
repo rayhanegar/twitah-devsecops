@@ -5,24 +5,16 @@
   <h2>Tweets</h2>
 
     <!-- 🔍 Search Form -->
-  <form method="GET" action="index.php" style="margin-bottom: 20px;">
+  <form method="GET" action="index.php" class="search-form">
     <input type="text" name="q" placeholder="Search tweets..." 
-           value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>" 
-           style="padding:8px; width:60%; border-radius:20px; border:1px solid #ccc;">
-    <button type="submit" style="background:#1da1f2; color:white; border:none; padding:8px 16px; border-radius:20px; cursor:pointer;">
-      Search
-    </button>
+          value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>">
+    <button type="submit">Search</button>
   </form>
 
   <?php if ($tweets && $tweets->num_rows > 0): ?>
     <?php while ($row = $tweets->fetch_assoc()): ?>
-      <div class="tweet">
-        <strong>
-          <a href="index.php?action=profile&id=<?= $row['id']; ?>" 
-            style="text-decoration:none; color:#000;">
-            @<?= $row['username']; ?>
-          </a>
-        </strong><br>
+      <div class="tweet-content">
+        <strong>@<?= $row['username']; ?></strong><br>
         <!-- intentionally NOT escaping content to allow XSS demo -->
         <p><?= $row['content']; ?></p>
         <?php if (!empty($row['image_url'])): ?>

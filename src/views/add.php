@@ -8,14 +8,14 @@
 
   <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
 
-  <div class="tweet" style="padding:20px;">
+  <div class="tweet-add">
     <form method="POST" action="index.php?action=storeTweet" enctype="multipart/form-data">
       <textarea name="content" rows="4" style="width:100%;" placeholder="Write your tweet..." maxlength="<?= ($currentRole === 'ningrat') ? 1000 : 200; ?>" required></textarea>
       <br><br>
       <label>Image (optional):</label>
       <input type="file" name="image" accept="image/*">
       <br><br>
-      <button type="submit" style="background:#1da1f2;color:#fff;padding:8px 12px;border:none;border-radius:6px;">Post</button>
+      <button type="submit">Post</button>
     </form>
   </div>
 </main>
