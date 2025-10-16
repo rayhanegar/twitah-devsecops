@@ -36,6 +36,9 @@ switch ($action) {
     case 'storeTweet':
         $tweet->store();
         break;
+    case 'showEdit':
+        $tweet->showEdit();
+        break;
     case 'updateTweet':
         $tweet->updateTweet();
         break;

@@ -19,6 +19,15 @@
       alert("Profile updated successfully!");
       window.history.replaceState({}, document.title, window.location.pathname);
     </script>
+
+    <?php
+    echo $_SESSION['flash'] ?? 'flash kosong jir';
+    elseif (!empty($_SESSION['flash'])):
+        $msg = $_SESSION['flash'];
+        unset($_SESSION['flash']);
+        echo "<script>alert(" . json_encode($msg) . ");</script>";
+
+    ?>
   <?php endif; ?>
 
   <?php
@@ -59,7 +68,7 @@
                 <a href="#" 
                   title="Edit Tweet" 
                   style="color:#ffc107; text-decoration:none; font-size:18px;"
-                  onclick="openEditDialog(<?= $tweet['id']; ?>, '<?= htmlspecialchars(addslashes($tweet['content'])); ?>'); return false;">
+                  onclick="window.location.href='index.php?action=showEdit&id=<?= $tweet['id']; ?>'">
                   <i class="fas fa-edit"></i>
                 </a>
               <?php endif; ?>
@@ -94,7 +103,7 @@
 </main>
 
 <!-- Dialog Edit Tweet -->
-<div id="editDialog" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+<!-- <div id="editDialog" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
      background:#fff; border:1px solid #ccc; border-radius:8px; padding:20px; z-index:1000; width:400px;">
   <h3>Edit Tweet</h3>
   <form id="editForm" method="POST" action="/index.php?action=updateTweet">
@@ -105,7 +114,7 @@
       <button type="submit">Save</button>
     </div>
   </form>
-</div>
+</div> -->
 
 <!-- Dialog Edit Profile -->
 <div id="usernameDialog" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
@@ -126,17 +135,17 @@
      background:rgba(0,0,0,0.5); z-index:999;" onclick="closeAllDialogs()"></div>
 
 <script>
-  function openEditDialog(id, content) {
-    document.getElementById('editTweetId').value = id;
-    document.getElementById('editTweetContent').value = content;
-    document.getElementById('editDialog').style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
-  }
+  // function openEditDialog(id, content) {
+  //   document.getElementById('editTweetId').value = id;
+  //   document.getElementById('editTweetContent').value = content;
+  //   document.getElementById('editDialog').style.display = 'block';
+  //   document.getElementById('overlay').style.display = 'block';
+  // }
 
-  function closeEditDialog() {
-    document.getElementById('editDialog').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-  }
+  // function closeEditDialog() {
+  //   document.getElementById('editDialog').style.display = 'none';
+  //   document.getElementById('overlay').style.display = 'none';
+  // }
 
   function openUsernameDialog(currentUsername) {
     document.getElementById('newUsername').value = currentUsername;
@@ -150,7 +159,7 @@
   }
 
   function closeAllDialogs() {
-    closeEditDialog();
+    // closeEditDialog();
     closeUsernameDialog();
   }
 </script>
