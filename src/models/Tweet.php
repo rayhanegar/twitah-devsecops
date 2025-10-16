@@ -27,12 +27,7 @@ class Tweet {
 
     public function searchTweets($keyword) {
     // VULNERABLE: raw query concatenation (SQL Injection possible)
-    $sql = "SELECT t.id, t.content, t.image_url, t.created_at, u.username 
-            FROM tweets t 
-            JOIN users u ON t.user_id = u.id 
-            WHERE t.content LIKE '%$keyword%' 
-               OR u.username LIKE '%$keyword%'
-            ORDER BY t.created_at DESC";
+    $sql = "SELECT tweets.id, tweets.content, tweets.image_url, tweets.created_at, users.username FROM tweets JOIN users ON tweets.user_id = users.id WHERE tweets.content LIKE '%$keyword%' OR users.username LIKE '%$keyword%' ORDER BY tweets.created_at DESC";
     return $this->conn->query($sql);
     }
 
