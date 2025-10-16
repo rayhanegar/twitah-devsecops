@@ -5,7 +5,7 @@
   <h2>Tweets</h2>
 
     <!-- 🔍 Search Form -->
-  <form method="GET" action="index.php" class="search-form">
+  <form method="GET" action="/index.php" class="search-form">
     <input type="text" name="q" placeholder="Search tweets..." 
           value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>">
     <button type="submit">Search</button>

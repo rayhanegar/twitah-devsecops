@@ -1,8 +1,8 @@
 <?php
-$host = "db";
-$user = "twita";
-$pass = "twita_pass";
-$dbname = "twita_db";
+$host = getenv('DB_HOST') ?: "sns-dso-db";
+$user = getenv('DB_USER') ?: "sns_user";
+$pass = getenv('DB_PASSWORD') ?: "";
+$dbname = getenv('DB_NAME') ?: "twita_db";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 

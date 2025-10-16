@@ -15,7 +15,7 @@ class ProfileController {
 
     public function show() {
         if (!isset($_SESSION['user'])) {
-            header('Location: views/auth/login.php');
+            header('Location: /index.php?action=loginForm');
             exit;
         }
 
@@ -46,7 +46,7 @@ class ProfileController {
 
     public function updateUsername() {
         if (!isset($_SESSION['user'])) {
-            header('Location: views/auth/login.php');
+            header('Location: /index.php?action=loginForm');
             exit;
         }
 
@@ -66,7 +66,7 @@ class ProfileController {
         // Update session
         $_SESSION['user']['username'] = $newUsername;
 
-        header('Location: index.php?action=profile&profile_updated=1');
+        header('Location: /index.php?action=profile&profile_updated=1');
         exit;
     }
 

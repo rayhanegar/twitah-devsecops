@@ -43,7 +43,7 @@ $currentUserId = $currentUser['id'] ?? null;
         <div style="margin-top:12px;">
           <?php if ($currentRole === 'jelata'): ?>
           <?php else: ?>
-            <form method="POST" action="index.php?action=unsubs" style="display:inline;">
+            <form method="POST" action="/index.php?action=unsubs" style="display:inline;">
               <input type="hidden" name="user_id" value="<?= $currentUserId; ?>">
               <button type="submit" class="btn btn-muted">Downgrade ke Jelata</button>
             </form>
@@ -64,7 +64,7 @@ $currentUserId = $currentUser['id'] ?? null;
         <div style="margin-top:12px;">
           <?php if ($currentRole === 'ningrat'): ?>
           <?php else: ?>
-            <form method="POST" action="index.php?action=subs" style="display:inline;">
+            <form method="POST" action="/index.php?action=subs" style="display:inline;">
               <input type="hidden" name="user_id" value="<?= $currentUserId; ?>">
               <button type="submit" class="btn btn-primary">Upgrade ke Ningrat</button>
             </form>

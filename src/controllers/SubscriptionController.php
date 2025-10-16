@@ -15,7 +15,7 @@ class SubscriptionController {
         $userId = $_POST['user_id'] ?? $_GET['user_id'] ?? ($_SESSION['user']['id'] ?? null);
 
         if (!$userId) {
-            header('Location: index.php?action=subscription');
+            header('Location: /index.php?action=subscription');
             exit;
         }
 
@@ -26,7 +26,7 @@ class SubscriptionController {
         $_SESSION['user']['role'] = 'ningrat';
 
         // redirect kembali ke halaman upgrade dengan flag
-        header('Location: index.php?action=subscription&subscribed=1');
+        header('Location: /index.php?action=subscription&subscribed=1');
         exit;
     }
 
@@ -36,7 +36,7 @@ class SubscriptionController {
         $userId = $_POST['user_id'] ?? $_GET['user_id'] ?? ($_SESSION['user']['id'] ?? null);
 
         if (!$userId) {
-            header('Location: index.php?action=subs');
+            header('Location: /index.php?action=subs');
             exit;
         }
 
@@ -46,7 +46,7 @@ class SubscriptionController {
 
         $_SESSION['user']['role'] = 'jelata';
 
-        header('Location: index.php?action=subscription&unsubscribed=1');
+        header('Location: /index.php?action=subscription&unsubscribed=1');
         exit;
     }
 

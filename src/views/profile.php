@@ -65,7 +65,7 @@
               <?php endif; ?>
 
               <!-- Tombol Delete -->
-              <form method="POST" action="index.php?action=deleteTweet" style="display:inline;" 
+              <form method="POST" action="/index.php?action=deleteTweet" style="display:inline;" 
                     onsubmit="return confirm('Yakin ingin menghapus tweet ini?');">
                 <input type="hidden" name="id" value="<?= $tweet['id']; ?>">
                 <button type="submit" title="Hapus Tweet"
@@ -97,7 +97,7 @@
 <div id="editDialog" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
      background:#fff; border:1px solid #ccc; border-radius:8px; padding:20px; z-index:1000; width:400px;">
   <h3>Edit Tweet</h3>
-  <form id="editForm" method="POST" action="index.php?action=updateTweet">
+  <form id="editForm" method="POST" action="/index.php?action=updateTweet">
     <input type="hidden" name="id" id="editTweetId">
     <textarea name="content" id="editTweetContent" rows="3" style="width:100%;"></textarea>
     <div style="text-align:right; margin-top:10px;">
@@ -111,7 +111,7 @@
 <div id="usernameDialog" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
      background:#fff; border:1px solid #ccc; border-radius:8px; padding:20px; z-index:1000; width:400px;">
   <h3>Edit Profile</h3>
-  <form method="POST" action="index.php?action=updateUsername">
+  <form method="POST" action="/index.php?action=updateUsername">
     <label for="newUsername">New Username:</label>
     <input type="text" name="username" id="newUsername" style="width:100%; margin-top:5px;" required>
     <div style="text-align:right; margin-top:10px;">

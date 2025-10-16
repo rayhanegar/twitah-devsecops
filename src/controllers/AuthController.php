@@ -28,7 +28,7 @@ class AuthController {
             if ($user) {
                 // simpan seluruh row user ke session (termasuk password) — intentionally vulnerable
                 $_SESSION['user'] = $user;
-                header("Location: index.php");
+                header("Location: /index.php");
                 exit;
             } else {
                 $error = "Email atau password salah!";
@@ -45,7 +45,7 @@ class AuthController {
             $password = $_POST['password'] ?? '';
 
             if ($this->model->register($username, $email, $password)) {
-                header("Location: index.php");
+                header("Location: /index.php");
                 exit;
             } else {
                 $error = "Gagal mendaftar!";
@@ -58,7 +58,7 @@ class AuthController {
     session_unset();
     session_destroy();
 
-    header("Location: index.php");
+    header("Location: /index.php");
     exit;
 }
 

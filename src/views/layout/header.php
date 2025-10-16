@@ -9,7 +9,7 @@ $user = $_SESSION['user'] ?? null;
 <head>
   <meta charset="UTF-8">
   <title>Twita</title>
-  <link rel="stylesheet" href="views/css/style.css">
+  <link rel="stylesheet" href="/views/css/style.css">
 </head>
 <body>
   <header>
@@ -20,11 +20,11 @@ $user = $_SESSION['user'] ?? null;
           Halo, <?= htmlspecialchars($user['username']); ?>
         </button>
         <div id="dropdownMenu" class="dropdown-content">
-          <a href="index.php?action=logout">Logout</a>
+          <a href="/index.php?action=logout">Logout</a>
         </div>
       </div>
     <?php else: ?>
-        <button onclick="location.href='views/auth/login.php'" class="login-btn">Login</button>
+        <button onclick="location.href='/index.php?action=loginForm'" class="login-btn">Login</button>
       </a>
     <?php endif; ?>
   </header>

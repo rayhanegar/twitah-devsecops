@@ -26,7 +26,7 @@ class TweetController {
 
     public function showAdd() {
         if(!isset($_SESSION['user'])) {
-            header("Location: views/auth/login.php");
+            header("Location: /index.php?action=loginForm");
             exit;
         }
         include __DIR__ . '/../views/add.php';
@@ -49,7 +49,7 @@ class TweetController {
 
         $ok = $this->model->addTweet($user_id, $content, $image_url);
         if ($ok) {
-            header("Location: index.php");
+            header("Location: /index.php");
             exit;
         } else {
             $error = "Gagal menyimpan tweet.";
@@ -69,9 +69,9 @@ class TweetController {
         $id = $_SESSION['user']['id'] ?? null;
 
         if ($id) {
-            header("Location: index.php?action=profile&id={$id}&success=1");
+            header("Location: /index.php?action=profile&id={$id}&success=1");
         } else {
-            header("Location: index.php?action=profile&success=1");
+            header("Location: /index.php?action=profile&success=1");
         }
         exit;
     }
@@ -88,9 +88,9 @@ class TweetController {
         $username = $_SESSION['user']['username'] ?? null;
 
         if ($username) {
-            header("Location: index.php?action=profile&username={$username}&deleted=1");
+            header("Location: /index.php?action=profile&username={$username}&deleted=1");
         } else {
-            header("Location: index.php?action=profile&deleted=1");
+            header("Location: /index.php?action=profile&deleted=1");
         }
         exit;
     }
