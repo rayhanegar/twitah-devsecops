@@ -32,6 +32,22 @@ class TweetController {
         include __DIR__ . '/../views/add.php';
     }
 
+    public function showEdit() {
+        if(!isset($_SESSION['user'])) {
+            header("Location: views/auth/login.php");
+            exit;
+        }
+        $id = $_GET['id'] ?? null;
+
+        $tweet = $this->model->getTweetById($id);
+        if (!$tweet) {
+            echo "Gagal mengambil tweet.";
+            return;
+        }
+
+        include __DIR__ . '/../views/edit.php';
+    }
+
     public function store() {
         // Ambil user_id dari session jika ada; jika tidak, set ke 1 (demo)
         $user_id = $_SESSION['user']['id'] ?? 1;
@@ -57,25 +73,28 @@ class TweetController {
         }
     }
     public function updateTweet() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id'];
-        $content = $_POST['content'];
+        $id = $_POST['id'] ?? null;
+        $content = $_POST['content'] ?? '';
+        $image_url = $_POST['image_url'] ?? null; // default: pakai image lama
 
-        // Update tweet
-        $query = "UPDATE tweets SET content = '$content' WHERE id = '$id'";
-        $this->db->query($query);
-
-        // Ambil username dari session agar bisa redirect ke profil yang sama
-        $id = $_SESSION['user']['id'] ?? null;
-
-        if ($id) {
-            header("Location: index.php?action=profile&id={$id}&success=1");
-        } else {
-            header("Location: index.php?action=profile&success=1");
+        // jika user upload gambar baru, ganti
+        if (!empty($_FILES['image']['name'])) {
+            $file = $_FILES['image'];
+            $newName = uniqid('img_', true) . '_' . basename($file['name']);
+            $dest = __DIR__ . '/../uploads/' . $newName;
+            move_uploaded_file($file['tmp_name'], $dest);
+            $image_url = 'uploads/' . $newName;
         }
-        exit;
+
+        $res = $this->model->updateTweet($id, $content, $image_url);
+        if ($res) {
+            $_SESSION['flash'] = 'Edit tweet berhasil.';
+            header("Location: index.php?action=profile");
+        } else {
+            $error = "Gagal memperbarui tweet.";
+            include __DIR__ . '/../views/edit.php';
+        }
     }
-}
     public function deleteTweet() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'];

@@ -35,6 +35,20 @@ class Tweet {
             ORDER BY t.created_at DESC";
     return $this->conn->query($sql);
     }
+
+    public function getTweetById($id) {
+        $sql = "SELECT * FROM {$this->table} WHERE id = $id";
+        $result = $this->conn->query($sql);
+        return $result ? $result->fetch_assoc() : null;
+    }
+
+    public function updateTweet($id, $content, $image_url) {
+        // VULNERABLE: tanpa escaping — raw SQL
+        $sql = "UPDATE {$this->table} 
+                SET content = '$content', image_url = '$image_url'
+                WHERE id = $id";
+        return $this->conn->query($sql);
+    }
     public function getByUserId($user_id) {
         $u = (int)$user_id; // cast to int for safety
         $sql = "SELECT * FROM {$this->table} WHERE user_id = $u ORDER BY created_at DESC";
