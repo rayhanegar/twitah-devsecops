@@ -22,12 +22,14 @@ class Tweet {
         $c = $this->conn->real_escape_string((string)$content);
         $i = $image_url ? $this->conn->real_escape_string((string)$image_url) : '';
         $sql = "INSERT INTO {$this->table} (user_id, content, image_url) VALUES ($u, '$c', '$i')";
+        error_log("Executed Add Tweet SQL: $sql");
         return $this->conn->query($sql);
     }
 
     public function searchTweets($keyword) {
     // VULNERABLE: raw query concatenation (SQL Injection possible)
     $sql = "SELECT tweets.id, tweets.content, tweets.image_url, tweets.created_at, users.username FROM tweets JOIN users ON tweets.user_id = users.id WHERE tweets.content LIKE '%$keyword%' OR users.username LIKE '%$keyword%' ORDER BY tweets.created_at DESC";
+    error_log("Executed Search Tweets SQL: $sql");
     return $this->conn->query($sql);
     }
 
@@ -42,11 +44,13 @@ class Tweet {
         $sql = "UPDATE {$this->table} 
                 SET content = '$content', image_url = '$image_url'
                 WHERE id = $id";
+        error_log("Executed Update Tweet SQL: $sql");
         return $this->conn->query($sql);
     }
     public function getByUserId($user_id) {
         $u = (int)$user_id; // cast to int for safety
         $sql = "SELECT * FROM {$this->table} WHERE user_id = $u ORDER BY created_at DESC";
+        error_log("Executed Get Tweets By User ID SQL: $sql");
         $res = $this->conn->query($sql);
         if ($res) {
             return $res->fetch_all(MYSQLI_ASSOC);

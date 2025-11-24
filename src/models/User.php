@@ -17,7 +17,9 @@ class User {
     // LOGIN: raw SQL (vulnerable to SQLi)
     public function login($email, $password) {
         $sql = "SELECT * FROM {$this->table} WHERE email = '$email' AND password = '$password' LIMIT 1";
+        error_log("SQL Query: " . $sql);
         $res = $this->conn->query($sql);
+        error_log("Rows returned: " . ($res ? $res->num_rows : '0'));
         if ($res && $res->num_rows === 1) {
             return $res->fetch_assoc();
         }
